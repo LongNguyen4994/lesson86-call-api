@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import Menu from './components/Menu/Menu';
+import { Outlet, Route, Routes } from 'react-router-dom';
+
+import routes from './routes';
+
+function ShowRoutes({routes}) {
+   let res = null;
+   if (routes.length > 0) {
+      res = routes.map((route, index) => {
+         return (
+            <Route
+               key={index}
+               path={route.path}
+               element={route.element()}
+
+            />
+         );
+      });
+   }
+   return <Routes>{res}</Routes>;
+}
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   // let routeList = showRoutes(routes);
+   return (
+      <div>
+         <Menu />
+         <Outlet />
+      
+         {/* {routeList} */}
+         <ShowRoutes routes={routes}/>
+         <br />
+      </div>
+   );
 }
 
 export default App;
+
+
+
